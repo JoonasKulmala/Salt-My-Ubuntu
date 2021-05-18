@@ -1,8 +1,7 @@
 #!/bin/bash
 
-# Copy the .gpg file to daemon
+# Import the SaltStack repository key
 sudo cp salt-archive-keyring.gpg /etc/apt/trusted.gpg.d/salt-archive-keyring.gpg
-#sudo curl -fsSL -o /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/py3/ubuntu/20.04/amd64/latest/salt-archive-keyring.gpg
 
 # Add the SaltStack repository to trusted sources
 echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg] https://repo.saltproject.io/py3/ubuntu/20.04/amd64/latest focal main" | sudo tee /etc/apt/sources.list.d/salt.list
@@ -13,5 +12,12 @@ sudo apt-get -y update
 # Install salt minion
 sudo apt-get -y install salt-minion
 
-# Add salt master to /etc/salt/minion file
-sudo cat minion > /etc/salt/minion | sudo tee /etc/salt/minion
+# Copy the minion configuration file
+sudo cp minion /etc/salt/
+
+# Restart salt minion daemon to connect with salt master
+sudo systemctl restart salt-minion
+
+# Remove directory when installed
+#cd
+#sudo rm -r ~/Salt-My-Ubuntu/
