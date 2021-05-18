@@ -1,3 +1,6 @@
+![license](https://img.shields.io/badge/license-gpl--3.0-brightgreen)
+![repo size](https://img.shields.io/github/repo-size/JoonasKulmala/Salt-My-Ubuntu)
+
 # Salt My Ubuntu
 
 - [Salt My Ubuntu](#salt-my-ubuntu)
