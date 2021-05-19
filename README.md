@@ -11,6 +11,9 @@
     - [apt repository](#apt-repository)
     - [Installing Salt Master & Minion](#installing-salt-master--minion)
     - [Salt Minion configuration](#salt-minion-configuration)
+  - [Testing the solution](#testing-the-solution)
+  - [License](#license)
+  - [Sources](#sources)
 
 | Tool        | Version      |
 | ----------- | ------------ |
@@ -114,6 +117,58 @@ Finally, restart the salt minion service to connect with your salt master:
 Your salt minion is now ready, provided its salt master is configured properly. Salt Master must accept the new minion:
 
     # -A accepts all pending keys
-    $ sudo salt-key
+    master $ sudo salt-key
 
+## Testing the solution
+
+Now it's time to test the solution.
+
+Let's start by cloning the repository:
+
+    # Clone the repository
+    $ git clone https://github.com/JoonasKulmala/Salt-My-Ubuntu.git
+
+Next step is to modify the `minion` file.
+
+    $ cd Salt-My-Ubuntu
+    $ nano minion
+    ...
+    master: 138.68.190.149
+    id: my-first-finion
+    ...
+
+Lastly, run the bash script `install-minion`:
+
+    $ bash install-minion
+    # Verify the version
+    $ salt-minion --version
+    salt-minion 3003
+
+Back on my Salt Master, let's see if there is a new key waiting to be accepted from *my-first-minion*:
+
+    master $ sudo salt-key -A
+    Unaccepted Keys:
+    my-first-minion
+
+
+There it is. We can confirm the link by pinging the minion:
+
+    master $ sudo salt '*' test.ping
+    my-first-minion:
+         True
+
+Now we have an easy 3 step method for generating new salt minions!
+
+## License
+
+Salt My Ubuntu is a personal project being distributed under [GPL-3.0](https://github.com/JoonasKulmala/Salt-My-Ubuntu/blob/main/LICENSE) license.
+
+## Sources
+
+SaltStack
+* [Salt Project](https://github.com/JoonasKulmala/Salt-My-Ubuntu/blob/main/LICENSE)
+* [Installation](https://docs.saltproject.io/en/latest/topics/installation/index.html)
+* [Configuring Salt](https://docs.saltproject.io/en/latest/topics/configuration/index.html)
+
+Joonas Kulmala - [Palvelinten Hallinta #h7](https://github.com/JoonasKulmala/Palvelinten-Hallinta/tree/main/h7)
 
