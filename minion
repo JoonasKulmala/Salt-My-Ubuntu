@@ -1,6 +1,6 @@
 ### EDIT THESE VALUES TO CONFIGURE MASTER IP, MINION NAME ###
 # IP address of this salt MINION's salt MASTER. 
-master: 138.68.190.149
+master: your-master-ip
 # Name of your minion.
 id: your-minion-name
 
